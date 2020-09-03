@@ -12,12 +12,12 @@
 <body>
     <div class="container">
         <p>Esta es una prueba</p>
-        <button id="activar">Abrir Overlay</button>
+        <button id="activar" onclick="agregar()">Abrir Overlay</button>
 
-        <div class="overlay">
-            <div class="popup">
+        <div class="overlay" id="overlay">
+            <div class="popup" id="popup">
                 <label id="label"></label>
-                <button id="desactivar">Desactivar Overlay</button>
+                <button id="desactivar" onclick="remover()">Desactivar Overlay</button>
             </div>
         </div>
 
