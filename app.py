@@ -4,4 +4,6 @@ def potencia(base, potencia):
         resultado=resultado*base
     return resultado
 
-print(potencia(3,3))
+base = int(input("Base "))
+pot = int(input("Potencia "))
+print("El resultado es: ",potencia(base, pot))
