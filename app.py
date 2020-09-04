@@ -26,7 +26,6 @@ def perfectos(n):
 
 
 
-
 def elec():
     opc = input("¿Factorial, Potencia, Primo o Perfecto?")
     if opc == "Factorial":
