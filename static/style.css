@@ -45,8 +45,8 @@
 .items{
     display: flex;
     flex-direction: column;
-    background-color: rgba(0,128,128,0.5);
-    width: 100px;
+    
+    width: 200px;
     height: min-content;
     margin-top: 20px;
 }

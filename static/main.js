@@ -10,9 +10,9 @@ function remover(){
     elemento.classList.remove('active');
 }
 
-function add(){
+function add(Producto, precio){
     var element = document.createElement("label");
-    element.innerHTML = "Producto"
+    element.innerHTML = Producto + " $" + precio
     /*document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\n"+"Producto";*/
     document.querySelector(".items").appendChild(element);
     
