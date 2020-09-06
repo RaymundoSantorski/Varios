@@ -12,6 +12,6 @@ function remover(){
 
 function add(){
     
-    document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\nProducto";
+    document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\n"+"Producto";
     
 }
