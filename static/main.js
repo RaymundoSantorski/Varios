@@ -10,7 +10,8 @@ function remover(){
     elemento.classList.remove('active');
 }
 
-function add{
-    var contenido = document.getElementById("items").innerHTML;
+function add(){
+    
+    document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\nProducto";
     
 }

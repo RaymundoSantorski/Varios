@@ -13,14 +13,14 @@
     <div class="container">
         <p>Esta es una prueba</p>
         <button id="activar" onclick="agregar()">Abrir Overlay</button>
-        <button id="agregar" inclick="add()">Agregar</button>
+        <button id="agregar" onclick="add()" item="Producto">Agregar</button>
 
         <div class="overlay" id="overlay">
             <div class="popup" id="popup">
                 <label id="label"></label>
                 <button id="desactivar" onclick="remover()">X</button>
                 <input type="text" placeholder="Buscar">
-                <label class="items"></label>
+                <label id="items"></label>
             </div>
         </div>
 

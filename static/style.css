@@ -23,6 +23,7 @@
 
 .popup{
     display: flex;
+    flex-direction: column;
     background-color: rgba(255,255,255,1);
     height: 500px;
     width: 500px;
@@ -36,15 +37,16 @@
 }
 
 .overlay input{
-    position: fixed;
     width: 100px;
     height: 20px;
     border-radius: 30px 30px 30px 30px;
 }
 
 .items{
+    display: flex;
+    flex-direction: column;
     background-color: rgba(0,128,128,0.5);
     width: 100px;
     height: min-content;
-    margin-top: 40px;
+    margin-top: 100px;
 }
