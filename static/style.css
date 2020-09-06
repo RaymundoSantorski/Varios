@@ -39,4 +39,5 @@
     position: fixed;
     width: 100px;
     height: 20px;
+    border-radius: 30px 30px 30px 30px;
 }
