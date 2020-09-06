@@ -41,3 +41,10 @@
     height: 20px;
     border-radius: 30px 30px 30px 30px;
 }
+
+.items{
+    background-color: rgba(0,128,128,0.5);
+    width: 100px;
+    height: min-content;
+    margin-top: 40px;
+}
