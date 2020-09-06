@@ -11,7 +11,9 @@ function remover(){
 }
 
 function add(){
-    
-    document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\n"+"Producto";
+    var element = document.createElement("label");
+    element.innerHTML = "Producto"
+    /*document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\n"+"Producto";*/
+    document.querySelector(".items").appendChild(element);
     
 }
