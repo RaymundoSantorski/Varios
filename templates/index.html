@@ -21,7 +21,10 @@
             <div class="popup" id="popup">
                 <label id="label"></label>
                 <button id="desactivar" onclick="remover()">X</button>
-                <input type="text" placeholder="Buscar">
+                <input type="text" placeholder="Nombre del produto" id="Nuevo">
+		<input type="number" placeholder="Precio" id="Precio">
+		<input type="button" value="Agregar" onclick="add(getElementById('Nuevo').value, getElementById('Precio').value)">
+		<label id="total" class="total"></label>
                 <div id="items" class="items"></div>
             </div>
         </div>

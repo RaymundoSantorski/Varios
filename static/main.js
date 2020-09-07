@@ -1,3 +1,4 @@
+var total = 0;
 var btnActivar = document.getElementById("activar");
 
 function agregar(){
@@ -11,9 +12,23 @@ function remover(){
 }
 
 function add(Producto, precio){
+    var dv = document.createElement("div");
+    dv.id = Producto;
+    dv.classList.add('item');
     var element = document.createElement("label");
+    var btn = document.createElement("input");
+    btn.type = "button";
+    btn.addEventListener('click',function(){
+        var padre = this.parentNode().id
+        alert("funciona");
+    });
+    document.querySelector(".items").appendChild(dv);
     element.innerHTML = Producto + " $" + precio
-    /*document.getElementById("items").innerHTML = document.getElementById("items").innerHTML + "\n"+"Producto";*/
-    document.querySelector(".items").appendChild(element);
+    document.querySelector(".item").appendChild(element);    
+    document.querySelector(".item").appendChild(btn);
+    
+
+    total = total + parseFloat(precio);
+    document.getElementById("total").innerHTML = "El total es: $"+total;
     
 }
