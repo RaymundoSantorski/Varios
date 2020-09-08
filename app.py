@@ -40,6 +40,19 @@ def raiz_cuad(n):
         valorInicial = (valorInicial+(n/valorInicial))/2 
     return valorInicial
 
+def raiz_cub(n):
+    valorInicial=0
+    i=0
+    while potencia(i,3)<n:
+        i+=1
+    if n-potencia(i,3) < potencia(i+1,3)-n:
+        valorInicial=i
+    else:
+        valorInicial=i+1
+    for q in range(10):
+        valorInicial=(valorInicial+(n/potencia(valorInicial,2)))/2
+    return valorInicial
+
 def elec():
     opc = input("¿Factorial, Potencia, Primo o Perfecto?")
     if opc == "Factorial":
@@ -53,13 +66,16 @@ def elec():
         n = int(input("Numero a evaluar"))
         print(primo(n))
     elif opc == "Perfecto":
-        n = int(input("¿Cuantos numeros perfectos?"))
+        n = int(input("¿Cuantos numeros perfectos? "))
         perfectos(n)
     elif opc == "Par":
-        n=int(input("Dame el numero"))
+        n=int(input("Dame el numero "))
         print(im_par(n))
     elif opc == "Raiz":
-        n=int(input("Dame el número"))
+        n=int(input("Dame el número "))
         print(raiz_cuad(n))
+    elif opc == "Cub":
+        n=int(input("Dame el numero "))
+        print(raiz_cub(n))
 
 elec()
