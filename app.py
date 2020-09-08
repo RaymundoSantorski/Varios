@@ -49,7 +49,7 @@ def raiz_cub(n):
         valorInicial=i
     else:
         valorInicial=i+1
-    for q in range(10):
+    for q in range(20):
         valorInicial=(valorInicial+(n/potencia(valorInicial,2)))/2
     return valorInicial
 
