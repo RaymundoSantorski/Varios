@@ -24,7 +24,8 @@ def perfectos(n):
                 perfecto = potencia(2,(i-1))*(potencia(2,i)-1)
                 print(perfecto)
 
-
+def im_par(n):
+    return n%2 == 0
 
 def elec():
     opc = input("¿Factorial, Potencia, Primo o Perfecto?")
@@ -41,6 +42,9 @@ def elec():
     elif opc == "Perfecto":
         n = int(input("¿Cuantos numeros perfectos?"))
         perfectos(n)
+    elif opc == "Par":
+        n=int(input("Dame el numero"))
+        print(im_par(n))
 
 
 elec()
