@@ -28,15 +28,15 @@
     width: 500px;
 }
 
-.item input{
+.item button{
     width: 20px !important;
     height: 20px !important;
     margin-top: 0px !important;
-    margin-left: 0px !important;
+    margin-left: 30px !important;
     
 }
 
-.overlay button{
+.overlay .desactivar{
     width: 30px;
     height: 30px;
     margin-top: -30px;
@@ -52,15 +52,15 @@
 .items{
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: max-content;
     height: min-content;
     margin-top: 20px;
 }
 
 .item{
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    width: 500px;
     height: min-content;
 }
 
@@ -69,5 +69,5 @@
 	background-color: rgba(0,0,0,0.8);
 	margin-left: 100px;
 	width: 100px;
-	heigth: 20px;
+	height: 20px;
 }

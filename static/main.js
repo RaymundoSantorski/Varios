@@ -14,18 +14,22 @@ function remover(){
 function add(Producto, precio){
     var dv = document.createElement("div");
     dv.id = Producto;
-    dv.classList.add('item');
+    dv.name = Producto;
     var element = document.createElement("label");
-    var btn = document.createElement("input");
-    btn.type = "button";
+    var btn = document.createElement("button");
+    btn.textContent = "X"
+    btn.classList.add("boton"); 
     btn.addEventListener('click',function(){
-        var padre = this.parentNode().id
-        alert("funciona");
+        var eli = document.getElementsByName(Producto);
+        var pa = document.getElementById(Producto);
+        pa.remove(eli);
+        total=total-precio;
+        document.getElementById("total").innerHTML = "El total es: $"+total;
     });
     document.querySelector(".items").appendChild(dv);
     element.innerHTML = Producto + " $" + precio
-    document.querySelector(".item").appendChild(element);    
-    document.querySelector(".item").appendChild(btn);
+    dv.appendChild(element);    
+    dv.appendChild(btn);
     
 
     total = total + parseFloat(precio);
