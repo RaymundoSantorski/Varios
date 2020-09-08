@@ -27,30 +27,17 @@ def perfectos(n):
 def im_par(n):
     return n%2 == 0
 
-def raiz_cuad(n):
+def raiz_cuad(n,r):
     valorInicial = 0
     i = 0
-    while potencia(i, 2) < n:
+    while potencia(i, r) < n:
         i+=1
-    if n-potencia(i,2) < potencia(i+1,2)-n:
+    if n-potencia(i,r) < potencia(i+1,r)-n:
         valorInicial = i
     else:
         valorInicial = i+1
-    for q in range(4):
-        valorInicial = (valorInicial+(n/valorInicial))/2 
-    return valorInicial
-
-def raiz_cub(n):
-    valorInicial=0
-    i=0
-    while potencia(i,3)<n:
-        i+=1
-    if n-potencia(i,3) < potencia(i+1,3)-n:
-        valorInicial=i
-    else:
-        valorInicial=i+1
-    for q in range(26):
-        valorInicial=(valorInicial+(n/potencia(valorInicial,2)))/2
+    for q in range(potencia(r,r)-1):
+        valorInicial = (valorInicial+(n/potencia(valorInicial,r-1)))/2
     return valorInicial
 
 def elec():
@@ -73,9 +60,7 @@ def elec():
         print(im_par(n))
     elif opc == "Raiz":
         n=int(input("Dame el número "))
-        print(raiz_cuad(n))
-    elif opc == "Cub":
-        n=int(input("Dame el numero "))
-        print(raiz_cub(n))
+        r=int(input("Raiz "))
+        print(raiz_cuad(n,r))
 
 elec()
