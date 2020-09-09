@@ -1,5 +1,9 @@
 {%extends "layout.html"%}
 
 {% block content %}
-
+<form action="/carrito" method="POST">
+    <input type="text" name="producto" id="producto" placeholder="Nombre del producto">
+    <input type="number" name="precio" id="precio" placeholder="Precio del producto">
+    <input type="submit" value="Enviar">
+</form>
 {% endblock %}

@@ -1,9 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__) 
 
 @app.route('/') 
 def index(): 
-    return render_template("index.html")
+    return render_template("index.html", methods=['POST'])
 
 @app.route('/productos')
 def product():
@@ -11,7 +11,14 @@ def product():
 
 @app.route('/carrito')
 def carrito():
-    return render_template("carrito.html")
+    return render_template("carrito.html", methods=['POST'])
+    if request.method == 'POST':
+        producto = request.form['producto']
+        precio = request.form['precio']
+        print(producto)
+        print(precio)
+        return 'Eres grandioso'
+
 
 @app.route('/successful')
 def successful():
