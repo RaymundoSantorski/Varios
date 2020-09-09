@@ -1,77 +1,13 @@
 {%extends "layout.html"%}
 
 {% block content %}
-<div class="muestra">
-    <div class="producto" class="primera">
-        <button onclick="add(50, 'Playera Bob Esponja')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='spongebob-min.jpg')}}" class="img" onclick="info(50)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="GCR4B764DBXGW">
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>
-    </div><!--Producto Playera Bob-->
-    <div class="producto">
-        <button onclick="add(60, 'Playera Billie Eilish')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='billie-min.jpg')}}" class="img" onclick="info(60)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="6VBYTHUBY9FBY">
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>	
-    </div><!--producto Playera Billie-->
-    <div class="producto">
-        <button onclick="add(70, 'Playera Baby Yoda')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='babyYoda-min.jpg')}}" class="img" onclick="info(70)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="23PMRQMXZ4QJL">
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>	
-    </div><!--producto Playera Yoda-->
-</div><!--muestra 1-->
-<div class="muestra">
-    <div class="producto" class="primera">
-        <button onclick="add(80, 'Playera When Love Finds Me')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='loveFinds-min.jpg')}}" class="img" onclick="info(80)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="HJHK4AAC33YC2">
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>						
-    </div><!--producto Playera When-->
-    <div class="producto">
-        <button onclick="add(90, 'Gorro con estampado')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='gorros-min.jpg')}}" class="img" onclick="info(90)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="6PHURPU8DVM9Q">
-            <table>
-            <tr><td><input type="hidden" name="on0" value="Estampado">Estampado</td></tr><tr><td><select name="os0">
-                <option value="Takis">Takis </option>
-                <option value="Bob Esponja">Bob Esponja </option>
-                <option value="Bratz">Bratz </option>
-                <option value="Mazapan">Mazapan </option>
-                <option value="Cerveza">Cerveza </option>
-            </select> </td></tr>
-            </table>
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>						
-    </div><!--producto Gorro-->
-    <div class="producto">
-        <button onclick="add(100, 'Body Chicas Super Poderosas')">Agregar a carrito</button>
-        <img src="{{url_for('static', filename='bodychicas-min.jpg')}}" class="img" onclick="info(100)" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="HLLDGMU784UEA">
-            <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-        </form>						
-    </div><!--producto body-->
-</div><!--muestra 2-->
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <img src="{{url_for('static', filename='babyYoda-min.jpg')}}" class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5 class="card-title">Playera Baby Yoda</h5>
+        <p class="card-text">Que la fuerza te acompañe</p>
+        <a onclick="add(50, 'Pl. Baby Yoda')" class="btn btn-primary">Agregar al carrito</a>
+    </div>
+</div>
 {% endblock %}

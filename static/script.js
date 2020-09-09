@@ -1,11 +1,15 @@
 var total=0
 
-var inicio = document.getElementById("inicio");
-inicio.addEventListener('click', function(){
-	var na = document.getElementsByClassName("nav-link");
-	na.classList.remove('active');
-	inicio.classList.add('active');
-});
+function active(elem){
+	var nab = document.getElementById(elem);
+	var nabs = documents.getElementsByClassName('nav-link active');
+	nabs.array.forEach(element => {
+		element.classList.remove('nav-link active');
+		element.classList.add('nav-link');
+	});
+	nab.classList.remove('nav-link');
+	nab.classList.add('nav-link active');
+}
 
 function info(precio)
 {
@@ -33,8 +37,9 @@ function add(precio, producto)
 	pro.innerHTML = producto + " $" + precio
 	dv.appendChild(pro);
 	dv.appendChild(btn);
-	
 	total=total+precio
+	document.getElementById("toal").innerHTML = "Total: $"+total;
+	
 }
 
 function cerrar(){
