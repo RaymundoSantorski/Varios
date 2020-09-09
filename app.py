@@ -40,6 +40,8 @@ def raiz_cuad(n,r):
         valorInicial = (valorInicial+(n/potencia(valorInicial,r-1)))/2
     return valorInicial
 
+
+
 def elec():
     opc = input("¿Factorial, Potencia, Primo o Perfecto?")
     if opc == "Factorial":
