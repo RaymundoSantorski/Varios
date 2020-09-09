@@ -2,19 +2,23 @@
 
 {% block content %}
 <div class="container">
-    <div class="card" style="width: 18rem;">
-        <img src="{{url_for('static', filename='babyYoda-min.jpg')}}" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">Playera Baby Yoda</h5>
-        <p class="card-text">Que la fuerza te acompañe</p>
-        <a onclick="add(50, 'Pl. Baby Yoda')" class="btn btn-primary">Agregar al carrito</a>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img src="{{url_for('static', filename='-min.jpg')}}" class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">Playera Baby Yoda</h5>
-        <p class="card-text">Que la fuerza te acompañe</p>
-        <a onclick="add(50, 'Pl. Baby Yoda')" class="btn btn-primary">Agregar al carrito</a>
+    <div class="card-group">
+        <div class="card" style="width: 18rem;">
+            <img src="{{url_for('static', filename='babyYoda-min.jpg')}}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">Playera Baby Yoda</h5>
+            <p class="card-text">Que la fuerza te acompañe</p>
+            <a onclick="add(50, 'Pl. Baby Yoda')" class="btn btn-primary">Agregar al carrito</a>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <img src="{{url_for('static', filename='billie-min.jpg')}}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">Playera Billie Eilish</h5>
+            <p class="card-text">$60</p>
+            <a onclick="add(60, 'Pl. Billie Eilish')" class="btn btn-primary">Agregar al carrito</a>
+        </div>
+
     </div>
 </div>
 {% endblock %}
