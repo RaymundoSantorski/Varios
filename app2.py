@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route('/') 
 def index(): 
-    return render_template("index.html", methods=['POST'])
+    return render_template("index.html", method1s=['POST'])
 
 @app.route('/productos')
 def product():
@@ -13,10 +13,6 @@ def product():
 def carrito():
     return render_template("carrito.html", methods=['POST'])
     if request.method == 'POST':
-        producto = request.form['producto']
-        precio = request.form['precio']
-        print(producto)
-        print(precio)
         return 'Eres grandioso'
 
 
