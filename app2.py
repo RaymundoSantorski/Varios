@@ -13,5 +13,10 @@ def product():
 def carrito():
     return render_template("carrito.html")
 
+@app.route('/successful')
+def successful():
+    return render_template("successful.html")
+
+
 if __name__ == '__main__': 
     app.run(debug=True)
