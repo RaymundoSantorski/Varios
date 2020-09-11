@@ -1,22 +1,23 @@
 from flask import Flask, render_template, request
+
 app = Flask(__name__) 
 
-@app.route('/') 
+@app.route("/") 
 def index(): 
-    return render_template("index.html", method1s=['POST'])
+    return render_template("index.html")
 
-@app.route('/productos')
+@app.route("/productos")
 def product():
     return render_template("producto.html")
 
-@app.route('/carrito')
+@app.route("/carrito", methods = ['GET','POST'])
 def carrito():
-    return render_template("carrito.html", methods=['POST'])
+    return render_template("carrito.html")
     if request.method == 'POST':
-        return 'Eres grandioso'
+        return "Eres grandioso"
 
 
-@app.route('/successful')
+@app.route("/successful")
 def successful():
     return render_template("successful.html")
 
