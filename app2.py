@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+import sqlite3
+
 
 app = Flask(__name__) 
 
@@ -10,11 +12,17 @@ def index():
 def product():
     return render_template("producto.html")
 
-@app.route("/carrito", methods = ['GET','POST'])
+@app.route("/carrito", methods = ['POST'])
 def carrito():
-    return render_template("carrito.html")
     if request.method == 'POST':
-        return "Eres grandioso"
+        producto = request.form['producto']
+        precio = request.form['precio']
+        if producto == "" or precio == "" or precio <= 0:
+            return "Formato no valido"
+        else:
+            print(producto)
+            print(precio)
+            return "Recibido"
 
 
 @app.route("/successful")
