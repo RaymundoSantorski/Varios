@@ -30,7 +30,7 @@ def carrito():
         else:
             con = sqlite3.connect('mydb.db')
             cur = con.cursor()
-            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES'), (producto, imagen, descripcion, precio)
+            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, imagen, descripcion, precio))
             con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('index'))
