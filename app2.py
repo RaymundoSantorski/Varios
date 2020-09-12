@@ -4,6 +4,10 @@ import sqlite3
 
 app = Flask(__name__)
 
+#conección a sqlite3
+con = sqlite3.connect('mydb.db')
+
+
 # settings
 app.secret_key = 'mysecretkey'
 
@@ -19,8 +23,11 @@ def product():
 def carrito():
     if request.method == 'POST':
         producto = request.form['producto']
+        imagen = request.form['imagen']
+        descripcion = request.form['descripcion']
         precio = request.form['precio']
         precioFormat = int(precio)
+        cur = con.cursor()
         if producto == "" or precio == "" or precioFormat <= 0:
             return "Formato no valido"
         else:
