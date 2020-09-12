@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 
 
-app = Flask(__name__) 
+app = Flask(__name__)
+
+# settings
+app.secret_key = 'mysecretkey'
 
 @app.route("/") 
 def index(): 
@@ -21,9 +24,8 @@ def carrito():
         if producto == "" or precio == "" or precioFormat <= 0:
             return "Formato no valido"
         else:
-            print(producto)
-            print(precio)
-            return "Recibido"
+            flash('Producto agregado satisfactoriamente')
+            return redirect(url_for('index'))
 
 
 @app.route("/successful")
