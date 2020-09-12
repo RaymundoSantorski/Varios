@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 
@@ -17,7 +17,8 @@ def carrito():
     if request.method == 'POST':
         producto = request.form['producto']
         precio = request.form['precio']
-        if producto == "" or precio == "" or precio <= 0:
+        precioFormat = int(precio)
+        if producto == "" or precio == "" or precioFormat <= 0:
             return "Formato no valido"
         else:
             print(producto)
