@@ -5,8 +5,6 @@ import sqlite3
 app = Flask(__name__)
 
 #conección a sqlite3
-con = sqlite3.connect('mydb.db')
-
 
 # settings
 app.secret_key = 'mysecretkey'
@@ -27,10 +25,13 @@ def carrito():
         descripcion = request.form['descripcion']
         precio = request.form['precio']
         precioFormat = int(precio)
-        cur = con.cursor()
         if producto == "" or precio == "" or precioFormat <= 0:
             return "Formato no valido"
         else:
+            con = sqlite3.connect('mydb.db')
+            cur = con.cursor()
+            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES'), (producto, imagen, descripcion, precio)
+            con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('index'))
 
