@@ -22,13 +22,19 @@
     </thead>
     <tbody>
         {% for producto in productos %}
+        {% with img = producto.1 %}
+        {% with f = open('newimage.jpg', 'w') %}
+        {% f.write(img) %}
+        {% f.close %}
             <tr>
                 <td>{{ producto.0 }}</td>
                 <td>{{ producto.1 }}</td>
-                <td><img src="data:;base64,{{ producto.2 }}"></td>
+                <td>{{ f }}</td>
                 <td>{{ producto.3 }}</td>
                 <td>${{ producto.4 }}</td>
             </tr>
+        {% endwith %}
+        {% endwith %}
         {% endfor %}
 
     </tbody>

@@ -26,6 +26,8 @@ def carrito():
     if request.method == 'POST':
         producto = request.form['producto']
         imagen = request.files['imagen']
+        imgdata = imagen.read()
+        buff = sqlite3.Binary(imgdata)
         descripcion = request.form['descripcion']
         precio = request.form['precio']
         precioFormat = int(precio)
@@ -34,7 +36,7 @@ def carrito():
         else:
             con = sqlite3.connect('mydb.db')
             cur = con.cursor()
-            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, imagen, descripcion, precio))
+            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, buff, descripcion, precio))
             con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('index'))
