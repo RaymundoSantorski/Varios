@@ -11,6 +11,9 @@ app.secret_key = 'mysecretkey'
 
 @app.route("/") 
 def index(): 
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM Productos')
     return render_template("index.html")
 
 @app.route("/productos")
