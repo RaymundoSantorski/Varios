@@ -2,11 +2,35 @@
 
 
 {% block content %}
-<form action="/carrito" method="POST">
+<form action="/carrito" method="POST" enctype="multipart/form-data">
     <input type="text" name="producto" id="producto" placeholder="Nombre del producto">
     <input type="file" name="imagen" id="imagen" placeholder="Imagen">
     <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
     <input type="number" name="precio" id="precio" placeholder="Precio del producto">
     <input type="submit" value="Enviar">
 </form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Producto</td>
+            <td>Imagen</td>
+            <td>Descripcion</td>
+            <td>Precio</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+            <tr>
+                <td>{{ producto.0 }}</td>
+                <td>{{ producto.1 }}</td>
+                <td><img src="data:;base64,{{ producto.2 }}"></td>
+                <td>{{ producto.3 }}</td>
+                <td>${{ producto.4 }}</td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
 {% endblock %}

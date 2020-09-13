@@ -14,7 +14,8 @@ def index():
     con = sqlite3.connect('mydb.db')
     cur = con.cursor()
     cur.execute('SELECT * FROM Productos')
-    return render_template("index.html")
+    data = cur.fetchall()
+    return render_template("index.html", productos = data)
 
 @app.route("/productos")
 def product():
@@ -24,7 +25,7 @@ def product():
 def carrito():
     if request.method == 'POST':
         producto = request.form['producto']
-        imagen = request.form['imagen']
+        imagen = request.files['imagen']
         descripcion = request.form['descripcion']
         precio = request.form['precio']
         precioFormat = int(precio)
