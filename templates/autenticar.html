@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<form action="/storeManager" method="POST">
+    <p>Iniciar sesion</p>
+    <input type="text" name="usuario" placeholder="Usuario">
+    <input type="password" name="contrasena" placeholder="Contraseña">
+    <input type="submit" value="Iniciar">
+</form>
+{% endblock %}
