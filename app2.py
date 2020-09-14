@@ -15,13 +15,7 @@ def index():
     cur = con.cursor()
     cur.execute('SELECT * FROM Productos')
     data = cur.fetchall()
-    data2 = []
-    for i in data:
-        f = open('newimage.jpg', 'w')
-        f.write(i[2])
-        data2.append(f)
-        f.close()
-    return render_template("index.html", productos = data, imgs = data2)
+    return render_template("index.html", productos = data)
 
 @app.route("/productos")
 def product():
