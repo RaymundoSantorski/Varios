@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form action="/update/{{producto.0}}" method="POST" enctype="multipart/form-data">
+    <input type="text" name="producto" id="producto" placeholder="Producto" value="{{ producto.1 }}">
+    <input type="file" name="imagen" id="imagen" placeholder="Imagen" value="{{producto.2}}">
+    <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion" value="{{producto.3}}">
+    <input type="number" name="precio" id="precio" placeholder="Precio" value="{{producto.4 | int()}}">
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}
