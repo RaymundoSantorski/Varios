@@ -34,12 +34,14 @@ def carrito():
         imagen = request.files['imagen']
         descripcion = request.form['descripcion']
         precio = request.form['precio']
-        precioFormat = int(precio)
         filename = imagen.filename
         destination = "/".join([target, filename])
-        if producto == "" or precio == "" or precioFormat <= 0:
+        if producto == "" or precio == "" or descripcion=="" or (imagen==None):
             return "Formato no valido"
         else:
+            filename = imagen.filename
+            destination = "/".join([target, filename])
+            precioFormat = int(precio)
             imagen.save(destination)
             con = sqlite3.connect('mydb.db')
             cur = con.cursor()
@@ -105,7 +107,7 @@ def update(id):
             con.commit()
         if precio:
             precioFormat = int(precio)
-            cur.execute("UPDATE Productos SET Precio = ? WHERE ID = ?", (precioFormat, id))
+            cur.execute("UPDATE Productos SET Precio = ? WHERE ID = ?", (precioFormat   , id))
             con.commit()
         flash('Producto acualizado satisfactoriamente')
         return redirect(url_for('index'))
