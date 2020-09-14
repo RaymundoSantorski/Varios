@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.secret_key = 'mysecretkey'
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+target = os.path.join(APP_ROOT, 'static/')
 
 @app.route("/") 
 def index(): 
@@ -25,8 +26,6 @@ def product():
 
 @app.route("/carrito", methods = ['POST'])
 def carrito():
-    target = os.path.join(APP_ROOT, 'static/')
-    print(target)
     if not os.path.isdir(target):
         os.mkdir(target)
     else:
@@ -54,6 +53,16 @@ def carrito():
 @app.route("/successful")
 def successful():
     return render_template("successful.html")
+
+@app.route("/delete/<id>")
+def delete(id):
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute('DELETE FROM Productos WHERE ID = ?', (id,))
+    con.commit()
+    target.os.remove()
+    flash('Producto eliminado satisfactoriamente')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__': 
     app.run(debug=True)
