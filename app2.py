@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-import sqlite3
+import sqlite3, os
 
 
 app = Flask(__name__)
@@ -8,6 +8,8 @@ app = Flask(__name__)
 
 # settings
 app.secret_key = 'mysecretkey'
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route("/") 
 def index(): 
@@ -23,20 +25,27 @@ def product():
 
 @app.route("/carrito", methods = ['POST'])
 def carrito():
+    target = os.path.join(APP_ROOT, 'static/')
+    print(target)
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    else:
+        print("couldnt create upload directory: {}".format(target))
     if request.method == 'POST':
         producto = request.form['producto']
         imagen = request.files['imagen']
-        imgdata = imagen.read()
-        buff = sqlite3.Binary(imgdata)
         descripcion = request.form['descripcion']
         precio = request.form['precio']
         precioFormat = int(precio)
+        filename = imagen.filename
+        destination = "/".join([target, filename])
         if producto == "" or precio == "" or precioFormat <= 0:
             return "Formato no valido"
         else:
+            imagen.save(destination)
             con = sqlite3.connect('mydb.db')
             cur = con.cursor()
-            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, buff, descripcion, precio))
+            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, filename, descripcion, precio))
             con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('index'))
@@ -45,7 +54,6 @@ def carrito():
 @app.route("/successful")
 def successful():
     return render_template("successful.html")
-
 
 if __name__ == '__main__': 
     app.run(debug=True)
