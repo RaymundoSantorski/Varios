@@ -7,6 +7,7 @@
     <title>ApapachateStore</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static', filename='estilos.css')}}">
     <!--<link rel=stylesheet href="{{url_for('static', filename='estilos.css')}} ">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script>
@@ -29,13 +30,17 @@
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
             <a class="navbar-brand" href="/">ApapachateStore</a>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
+                <div class="navbar-nav align-self-center">
                     <a class="nav-link active" onclick="active('inicio')" id="Inicio" href="/">Inicio</a>
                     <a class="nav-link active" onclick="active('productos')" id="Productos"
                         href="/productos">Productos</a>
                     <a class="nav-link active" onclick="active('carrito')" id="Carrito" href="/carrito">Carrito</a>
                 </div>
             </div>
+            <form class="form-inline justify-content-end my-2 my-lg-0">
+                <input class="form-control rounded-pill tc border-dark mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
+              </form>
         </nav>
     </div>
 

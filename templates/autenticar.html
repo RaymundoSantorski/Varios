@@ -2,9 +2,11 @@
 
 {% block content %}
 <form action="/storeManager" method="POST">
-    <p>Iniciar sesion</p>
-    <input type="text" name="usuario" placeholder="Usuario">
-    <input type="password" name="contrasena" placeholder="Contraseña">
-    <input type="submit" value="Iniciar">
+    <div class="form-group">
+        <p>Iniciar sesion</p>
+        <input type="text" class="form-control" name="usuario" placeholder="Usuario">
+        <input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
+        <input type="submit" class="form-control btn btn-success" value="Iniciar">
+    </div>
 </form>
 {% endblock %}
