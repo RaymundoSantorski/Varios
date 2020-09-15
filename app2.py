@@ -10,6 +10,14 @@ app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 
+@app.route("/")
+def index():
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Productos")
+    productos = cur.fetchall()
+    return render_template('index.html', productos = productos)
+
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
     if request.method == 'POST':
@@ -24,7 +32,7 @@ def storeManager():
             if usuario[1]==user and usuario[0]==password:
                 auten = True
                 break
-        
+    
         if auten == True:   
             cur.execute('SELECT * FROM Productos')
             data = cur.fetchall()
@@ -35,10 +43,7 @@ def storeManager():
             flash('El usuario o la contraseña son incorrectos')
             return render_template("autenticar.html")
     else:
-        if access == True:
-            return render_template("storeManager.html")
-        else:
-            return render_template("autenticar.html")
+        return render_template("autenticar.html")
 
 @app.route("/productos")
 def product():
@@ -82,7 +87,6 @@ def delete(id):
     img = cur.fetchone()
     cur.execute('DELETE FROM Productos WHERE ID = ?', (id,))
     con.commit()
-    print(img[0])
     os.remove('static/'+img[0])
     flash('Producto eliminado satisfactoriamente')
     return redirect(url_for('storeManager'))

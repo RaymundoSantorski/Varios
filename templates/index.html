@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-3 mt-5">
+    {% for producto in productos %}
+        <div class="col mb-4">
+          <div class="card h-90">
+            <img src="{{url_for('static', filename=producto.2)}}" class="card-img-top align-self-center" alt="..." style="height: 300px; width: 300px;">
+            <div class="card-body">
+              <h5 class="card-title">{{producto.1}}</h5>
+              <p class="card-text">{{producto.3}}</p>
+              <p class="card-text">${{producto.4}}</p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
