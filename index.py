@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
+total = 0
+loggeado = False
 
 @app.route("/")
 def index():
@@ -20,30 +22,38 @@ def index():
 
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
-    if request.method == 'POST':
-        user = request.form['usuario']
-        password = request.form['contrasena']
-        con = sqlite3.connect('mydb.db')
-        cur = con.cursor()
-        cur.execute('SELECT * FROM Usuarios')
-        usuarios = cur.fetchall()
-        auten = False
-        for usuario in usuarios:
-            if usuario[1]==user and usuario[0]==password:
-                auten = True
-                break
-    
-        if auten == True:   
-            cur.execute('SELECT * FROM Productos')
-            data = cur.fetchall()
-            access = True
-            flash('Bienvenido')
-            return render_template("storeManager.html", productos = data)
+    global loggeado
+    if loggeado == False:
+        if request.method == 'POST':
+            user = request.form['usuario']
+            password = request.form['contrasena']
+            con = sqlite3.connect('mydb.db')
+            cur = con.cursor()
+            cur.execute('SELECT * FROM Usuarios')
+            usuarios = cur.fetchall()
+            auten = False
+            for usuario in usuarios:
+                if usuario[1]==user and usuario[0]==password:
+                    auten = True
+                    break
+        
+            if auten == True:   
+                cur.execute('SELECT * FROM Productos')
+                data = cur.fetchall()
+                loggeado = True
+                flash('Bienvenido')
+                return render_template("storeManager.html", productos = data)
+            else:
+                flash('El usuario o la contraseña son incorrectos')
+                return render_template("autenticar.html")
         else:
-            flash('El usuario o la contraseña son incorrectos')
             return render_template("autenticar.html")
     else:
-        return render_template("autenticar.html")
+        con = sqlite3.connect('mydb.db')
+        cur = con.cursor()
+        cur.execute('SELECT * FROM Productos')
+        data = cur.fetchall()
+        return render_template("storeManager.html", productos = data )
 
 @app.route("/productos")
 def product():
@@ -74,6 +84,13 @@ def add():
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('storeManager'))
 
+
+@app.route("/addproduct/<int:precio>")
+def agregar(precio):
+    global total 
+    total += precio
+    flash('El total es {}'.format(total))
+    return redirect(url_for('index'))
 
 @app.route("/successful")
 def successful():

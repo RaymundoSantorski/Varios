@@ -3,6 +3,7 @@
 {% block content %}
     <div class="row row-cols-1 row-cols-md-3 mt-5">
     {% for producto in productos %}
+    {% with precio = producto.4|int() %}
         <div class="col mb-4">
           <div class="card h-90 bg-transparent border-0 align-content-center justify-content-center">
             <img src="{{url_for('static', filename=producto.2)}}" class="card-img-top align-self-center shadow" alt="..." style="height: 300px; width: 300px;">
@@ -11,9 +12,10 @@
               <p class="card-text text-center">{{producto.3}}</p>
               <p class="card-text text-center">${{producto.4}}</p>
             </div>
-            <a class="btn btn-success text-center">Agregar a carrito</a>
+            <a class="btn btn-success text-center" href="/addproduct/{{precio}}">Agregar a carrito</a>
           </div>
         </div>
+    {% endwith %}
     {% endfor %}
     </div>
 {% endblock %}

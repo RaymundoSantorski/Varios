@@ -16,29 +16,10 @@ function info(precio)
 	alert("El precio es $"+precio)
 }
 
-function add(precio, producto)
+function add(precio)
 {
-	var dv = document.createElement("div");
-	dv.id = producto;
-	dv.name = producto;
-	dv.classList.add("it");
-	var pro = document.createElement("label");
-	var btn = document.createElement("button");
-	btn.textContent = "X"
-	btn.classList.add("boton");
-	btn.addEventListener('click', function(){
-		var eli = document.getElementsByName(producto);
-		var pa = document.getElementById(producto);
-		pa.remove(eli);
-		total=total-precio;
-		document.getElementById("total").innerHTML = "Total: $"+total;
-	});
-	document.querySelector(".items").appendChild(dv);
-	pro.innerHTML = producto + " $" + precio
-	dv.appendChild(pro);
-	dv.appendChild(btn);
-	total=total+precio
-	document.getElementById("toal").innerHTML = "Total: $"+total;
+	total = total+precio;
+	console.log(total)
 	
 }
 
