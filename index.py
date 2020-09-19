@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3, os
 
+
 app = Flask(__name__)
 
 #conección a sqlite3
