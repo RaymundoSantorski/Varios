@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, escape
 import sqlite3, os
 
 
@@ -11,7 +11,6 @@ app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
-loggeado = False
 
 @app.route("/")
 def index():
@@ -23,8 +22,14 @@ def index():
 
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
-    global loggeado
-    if loggeado == False:
+    if "username" in session:
+        con = sqlite3.connect('mydb.db')
+        cur = con.cursor()
+        cur.execute('SELECT * FROM Productos')
+        data = cur.fetchall()
+        name = escape(session["username"])
+        return render_template("storeManager.html", productos = data, opc = True, name = name )
+    else:
         if request.method == 'POST':
             user = request.form['usuario']
             password = request.form['contrasena']
@@ -35,26 +40,27 @@ def storeManager():
             auten = False
             for usuario in usuarios:
                 if usuario[1]==user and usuario[0]==password:
+                    session["username"] = user
                     auten = True
                     break
         
             if auten == True:   
                 cur.execute('SELECT * FROM Productos')
                 data = cur.fetchall()
-                loggeado = True
                 flash('Bienvenido')
-                return render_template("storeManager.html", productos = data)
+                name = escape(session["username"])
+                return render_template("storeManager.html", productos = data, opc = True, name = name)
             else:
                 flash('El usuario o la contraseña son incorrectos')
                 return render_template("autenticar.html")
         else:
             return render_template("autenticar.html")
-    else:
-        con = sqlite3.connect('mydb.db')
-        cur = con.cursor()
-        cur.execute('SELECT * FROM Productos')
-        data = cur.fetchall()
-        return render_template("storeManager.html", productos = data )
+
+@app.route('/storeManager/logout')
+def storeLogout():
+    session.pop("username")
+    flash('Has cerrado tu sesión')
+    return redirect(url_for('storeManager'))
 
 @app.route("/productos")
 def product():
@@ -154,4 +160,4 @@ def update(id):
         return redirect(url_for('storeManager'))
 
 if __name__ == '__main__': 
-    app.run(debug=True)
+    app.run(debug=True, port=5500)

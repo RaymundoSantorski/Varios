@@ -1,5 +1,10 @@
 {%extends "layout.html"%}
 
+{% block log %}
+{% if opc == True%}
+<a href="/storeManager/logout" style="color:azure;">{{name}} | Logout</a>
+{% endif %}
+{% endblock %}
 
 {% block content %}
 <form action="/add" method="POST" enctype="multipart/form-data">
