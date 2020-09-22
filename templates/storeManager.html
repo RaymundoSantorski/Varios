@@ -35,6 +35,8 @@
                 <td>Imagen</td>
                 <td>Descripcion</td>
                 <td>Precio</td>
+                <td>Stock</td>
+                <td>Etiquetas</td>
                 <td>Operaciones</td>
             </tr>
         </thead>
@@ -46,6 +48,8 @@
                     <td><img src="{{url_for('static', filename=producto.2)}}"  style="width: 80px; height: 80px;"></td>
                     <td>{{ producto.3 }}</td>
                     <td>${{ producto.4 }}</td>
+                    <td>{{ producto.5 }}</td>
+                    <td>{{ producto.6 }}</td>
                     <td>
                         <a href="/edit/{{producto.0}}" class="btn btn-primary">Editar</a>
                         <a href="/delete/{{producto.0}}" class="btn btn-danger">Borrar</a>
