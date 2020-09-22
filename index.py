@@ -4,22 +4,14 @@ import sqlite3, os
 
 app = Flask(__name__)
 
-#conección a sqlite3
-
 # settings
 app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
 
-@app.route("/")
-def index():
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM Productos")
-    productos = cur.fetchall()
-    return render_template('index.html', productos = productos)
 
+#storeManager
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
     if "username" in session:
@@ -62,10 +54,6 @@ def storeLogout():
     flash('Has cerrado tu sesión')
     return redirect(url_for('storeManager'))
 
-@app.route("/productos")
-def product():
-    return render_template("producto.html")
-
 @app.route("/add", methods = ['POST'])
 def add():
     if not os.path.isdir(target):
@@ -90,18 +78,6 @@ def add():
             con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('storeManager'))
-
-
-@app.route("/addproduct/<int:precio>")
-def agregar(precio):
-    global total 
-    total += precio
-    flash('El total es {}'.format(total))
-    return redirect(url_for('index'))
-
-@app.route("/successful")
-def successful():
-    return render_template("successful.html")
 
 @app.route("/delete/<id>")
 def delete(id):
@@ -158,6 +134,37 @@ def update(id):
             con.commit()
         flash('Producto actualizado satisfactoriamente')
         return redirect(url_for('storeManager'))
+
+
+#apapachateStore
+@app.route("/")
+def index():
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Productos")
+    productos = cur.fetchall()
+    return render_template('index.html', productos = productos)
+
+@app.route("/productos")
+def product():
+    return render_template("productos.html")
+
+@app.route("/addproduct/<int:precio>")
+def agregar(precio):
+    global total 
+    total += precio
+    flash('El total es {}'.format(total))
+    return redirect(url_for('index'))
+
+@app.route("/successful")
+def successful():
+    return render_template("successful.html")
+
+@app.route("/carrito")
+def carrito():
+    return render_template('carrito.html')
+
+
 
 if __name__ == '__main__': 
     app.run(debug=True, port=5500)
