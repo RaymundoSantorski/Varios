@@ -147,7 +147,11 @@ def index():
 
 @app.route("/productos")
 def product():
-    return render_template("productos.html")
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM Productos')
+    data = cur.fetchall()
+    return render_template("productos.html", productos = data)
 
 @app.route("/addproduct/<int:precio>")
 def agregar(precio):
