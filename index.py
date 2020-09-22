@@ -179,6 +179,14 @@ def successful():
 def carrito():
     return render_template('carrito.html')
 
+@app.route("/producto/<id>")
+def producto(id):
+    con = sqlite3.connect('mydb.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Productos WHERE ID = ?", (id,))
+    producto = cur.fetchall()
+    return render_template("producto.html", productos = producto)
+
 
 
 if __name__ == '__main__': 
