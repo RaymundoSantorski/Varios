@@ -63,10 +63,13 @@ def add():
         imagen = request.files['imagen']
         descripcion = request.form['descripcion']
         precio = request.form['precio']
+        inventario = request.form['inventario']
+        etiquetas = request.form['etiquetas']
         filename = imagen.filename
         destination = "/".join([target, filename])
-        if producto == "" or precio == "" or descripcion=="" or (imagen==None):
-            return "Formato no valido"
+        if producto == "" or precio == "" or descripcion=="" or (imagen==None) or inventario == None or etiquetas == "":
+            flash('Llena todos los campos correctamente')
+            return redirect(url_for('storeManager'))
         else:
             filename = imagen.filename
             destination = "/".join([target, filename])
@@ -74,7 +77,7 @@ def add():
             imagen.save(destination)
             con = sqlite3.connect('mydb.db')
             cur = con.cursor()
-            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio) VALUES (?,?,?,?)',(producto, filename, descripcion, precio))
+            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio, Inventario, Etiquetas) VALUES (?,?,?,?,?,?)',(producto, filename, descripcion, precio, inventario, etiquetas))
             con.commit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('storeManager'))
