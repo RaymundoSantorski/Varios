@@ -109,6 +109,8 @@ def update(id):
         imagen = request.files['imagen']
         descripcion = request.form['descripcion']
         precio = request.form['precio']
+        inventario = request.form['inventario']
+        etiquetas = request.form['etiquetas']
         filename = imagen.filename
         destination = "/".join([target, filename])
         con = sqlite3.connect('mydb.db')
@@ -134,6 +136,12 @@ def update(id):
         if precio:
             precioFormat = int(precio)
             cur.execute("UPDATE Productos SET Precio = ? WHERE ID = ?", (precioFormat   , id))
+            con.commit()
+        if inventario:
+            cur.execute("UPDATE Productos SET Inventario = ? WHERE ID = ?", (inventario, id))
+            con.commit()
+        if etiquetas:
+            cur.execute("UPDATE Productos SET Etiquetas = ? WHERE ID = ?", (etiquetas, id))
             con.commit()
         flash('Producto actualizado satisfactoriamente')
         return redirect(url_for('storeManager'))
