@@ -146,6 +146,16 @@ def update(id):
         flash('Producto actualizado satisfactoriamente')
         return redirect(url_for('storeManager'))
 
+@app.route("/signup", methods=['POST'])
+def signup():
+    if request.method == 'POST':    
+        return render_template('signup.html')
+
+@app.route("/adduser", methods=['POST'])
+def adduser():
+    flash('Usuario registrado satisfactoriamente')
+    return redirect(url_for('storeManager'))
+
 
 #apapachateStore
 @app.route("/")
