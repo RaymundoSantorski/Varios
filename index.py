@@ -196,6 +196,12 @@ def product():
     data = cur.fetchall()
     return render_template("productos.html", productos = data)
 
+@app.route("/vaciarCarrito")
+def vaciarCarrito():
+    session.pop("total")
+    flash("Has vaciado el carrito")
+    return render_template('carrito.html')
+
 @app.route("/addproduct/<int:precio>")
 def agregar(precio):
     if 'total' in session:
