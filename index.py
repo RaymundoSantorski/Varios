@@ -198,10 +198,13 @@ def product():
 
 @app.route("/addproduct/<int:precio>")
 def agregar(precio):
-    global total 
-    total += precio
-    flash('El total es {}'.format(total))
+    if 'total' in session:
+        session['total'] = int(escape(session['total']))+precio
+    else:
+        session['total'] = precio
+    flash('El total es {}'.format(escape(session['total'])))
     return redirect(url_for('index'))
+
 
 @app.route("/successful")
 def successful():
