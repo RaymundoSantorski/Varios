@@ -149,6 +149,12 @@ def update(id):
 @app.route("/signup", methods=['POST'])
 def signup():
     if request.method == 'POST':    
+        usuario = request.form['usuario']
+        contrasena = request.form['contrasena']
+        confirmcontrasena = request.form['confirmcontrasena']
+        con = sqlite3.connect('mydb.db')
+        cur = con.cursor()
+    else:
         return render_template('signup.html')
 
 @app.route("/adduser", methods=['POST'])
