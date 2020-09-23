@@ -146,7 +146,7 @@ def update(id):
         flash('Producto actualizado satisfactoriamente')
         return redirect(url_for('storeManager'))
 
-@app.route("/signup", methods=['POST'])
+@app.route("/signup", methods=['GET','POST'])
 def signup():
     if request.method == 'POST':    
         usuario = request.form['usuario']
@@ -154,6 +154,22 @@ def signup():
         confirmcontrasena = request.form['confirmcontrasena']
         con = sqlite3.connect('mydb.db')
         cur = con.cursor()
+        cur.execute("SELECT * FROM Usuarios")
+        users = cur.fetchall()
+        registrar = False
+        if contrasena == confirmcontrasena:
+            for user in users:
+                if user[1] == usuario:
+                    flash('El usuario ya existe, intente con otro')
+                    return render_template('signup.html')
+                else:
+                    cur.execute('INSERT INTO Usuarios (Usuario,Contraseña) VALUES (?,?)',(usuario, contrasena))
+                    con.commit()
+                    flash('Usuario registrado exitosamente')
+                    return redirect(url_for('storeManager'))
+        else:
+            flash('Las contraseñas deben coincidir')
+            return render_template('signup.html')
     else:
         return render_template('signup.html')
 
