@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="overlay" id="overlay">
-    <div class="popup">
+{% if total %}
+<div class="container-lg" id="overlay">
+    <div class="col mb-4">
         <label id="total" class="total"><h1>${{total}}</h1></label>
         <div id="items" class="items"></div>
         <div class="pago" id="paypal-button-container"></div>
@@ -35,5 +36,7 @@
         </script><!--Paypal plugin-->
     </div><!--popup-->
 </div> <!--overlay-->
-
+{% else %}
+<h1>Todavía no tienes productos en el carrito</h1>
+{% endif %}
 {% endblock %}

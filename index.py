@@ -212,7 +212,10 @@ def successful():
 
 @app.route("/carrito")
 def carrito():
-    return render_template('carrito.html', total = escape(session['total']))
+    if 'total' in session:
+        return render_template('carrito.html', total = escape(session['total']))
+    else:
+        return render_template('carrito.html')
 
 @app.route("/producto/<id>")
 def producto(id):
