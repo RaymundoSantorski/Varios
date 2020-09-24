@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape
-import sqlite3, os
+import sqlite3, os, smtplib
 
 
 app = Flask(__name__)
@@ -10,6 +10,9 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
 
+emaillist = ['rayma9829@gmail.com','armnproductos.39@gmail.com']
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
 
 #storeManager
 @app.route("/storeManager", methods =['POST','GET']) 
@@ -79,6 +82,14 @@ def add():
             cur = con.cursor()
             cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio, Inventario, Etiquetas) VALUES (?,?,?,?,?,?)',(producto, filename, descripcion, precio, inventario, etiquetas))
             con.commit()
+            server.starttls()
+            server.login('apapachatestore@gmail.com','apapachatecontrasena')
+            message = 'Se ha agregado un producto satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
+            subject = 'Producto agregado'
+            message = 'Subject: {}\n\n{}'.format(subject, message)
+            for email in emaillist:
+                server.sendmail('apapachatestore@gmail.com', email, message)
+            server.quit()
             flash('Producto agregado satisfactoriamente')
             return redirect(url_for('storeManager'))
 
@@ -91,6 +102,14 @@ def delete(id):
     cur.execute('DELETE FROM Productos WHERE ID = ?', (id,))
     con.commit()
     os.remove('static/'+img[0])
+    server.starttls()
+    server.login('apapachatestore@gmail.com','apapachatecontrasena')
+    message = 'El producto ha sido eliminado satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
+    subject = 'Producto eliminado'
+    message = 'Subject: {}\n\n{}'.format(subject, message)
+    for email in emaillist:
+        server.sendmail('apapachatestore@gmail.com', email, message)
+    server.quit()
     flash('Producto eliminado satisfactoriamente')
     return redirect(url_for('storeManager'))
 
@@ -143,6 +162,14 @@ def update(id):
         if etiquetas:
             cur.execute("UPDATE Productos SET Etiquetas = ? WHERE ID = ?", (etiquetas, id))
             con.commit()
+        server.starttls()
+        server.login('apapachatestore@gmail.com','apapachatecontrasena')
+        message = 'El producto ha sido actualizado satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
+        subject = 'Producto actualizado'
+        message = 'Subject: {}\n\n{}'.format(subject, message)
+        for email in emaillist:
+            server.sendmail('apapachatestore@gmail.com', email, message)
+        server.quit()
         flash('Producto actualizado satisfactoriamente')
         return redirect(url_for('storeManager'))
 
@@ -165,6 +192,14 @@ def signup():
                 else:
                     cur.execute('INSERT INTO Usuarios (Usuario,Contraseña) VALUES (?,?)',(usuario, contrasena))
                     con.commit()
+                    server.starttls()
+                    server.login('apapachatestore@gmail.com','apapachatecontrasena')
+                    message = 'Se ha registrado un nuevo usuario\nCorreo enviado desde apapachatestore.herokuapp.com'
+                    subject = 'Alta de usuario'
+                    message = 'Subject: {}\n\n{}'.format(subject, message)
+                    for email in emaillist:
+                        server.sendmail('apapachatestore@gmail.com', email, message)
+                    server.quit()
                     flash('Usuario registrado exitosamente')
                     return redirect(url_for('storeManager'))
         else:
@@ -230,7 +265,6 @@ def producto(id):
     cur.execute("SELECT * FROM Productos WHERE ID = ?", (id,))
     producto = cur.fetchall()
     return render_template("producto.html", productos = producto)
-
 
 
 if __name__ == '__main__': 
