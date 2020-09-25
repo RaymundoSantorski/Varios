@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape
 import sqlite3, os, smtplib
-
+from google.cloud import storage, firestore
 
 app = Flask(__name__)
 
