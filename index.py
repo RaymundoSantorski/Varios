@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, escape
+from flask import Flask, render_template, request, redirect, url_for, flash, session, escape, jsonify
 import sqlite3, os, smtplib
 from google.cloud import storage
 from firebase import firebase 
@@ -10,14 +10,11 @@ app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
-db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
-datas = {
-        "nombre":"Angelica Negrete",
-        "edad":"21"
-}
-datos = db.get("Users", "-MI7fr3jIh_AvgAJBZOD")
-print(datos)
 
+# firebase
+db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
+
+#email smtp
 emaillist = ['rayma9829@gmail.com','armnproductos.39@gmail.com']
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
@@ -90,6 +87,15 @@ def add():
             cur = con.cursor()
             cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio, Inventario, Etiquetas) VALUES (?,?,?,?,?,?)',(producto, filename, descripcion, precio, inventario, etiquetas))
             con.commit()
+            datas = {
+                "Producto": producto,
+                "Imagen": filename,
+                "Descripcion": descripcion,
+                "Precio": precio,
+                "Inventario": inventario,
+                "Etiquetas": etiquetas
+            }
+            datos = db.post("Productos", datas)
             server.login('apapachatestore@gmail.com','apapachatecontrasena')
             message = 'Se ha agregado un producto satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
             subject = 'Producto agregado'
