@@ -16,7 +16,8 @@ datas = {
         "nombre":"Angelica Negrete",
         "edad":"21"
 }
-db.post("Users", datas)
+datos = db.get("Users", "-MI7fr3jIh_AvgAJBZOD")
+print(datos)
 
 emaillist = ['rayma9829@gmail.com','armnproductos.39@gmail.com']
 server = smtplib.SMTP('smtp.gmail.com', 587)
