@@ -10,7 +10,6 @@ app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
-
 db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
 datas = {
         "nombre":"Angelica Negrete",
