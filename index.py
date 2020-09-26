@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape
 import sqlite3, os, smtplib
-from google.cloud import storage, firestore
+from google.cloud import storage
+from firebase import firebase 
 
 app = Flask(__name__)
 
@@ -9,6 +10,13 @@ app.secret_key = 'mysecretkey'
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 target = os.path.join(APP_ROOT, 'static/')
 total = 0
+
+db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
+datas = {
+        "nombre":"Angelica Negrete",
+        "edad":"21"
+}
+db.post("Users", datas)
 
 emaillist = ['rayma9829@gmail.com','armnproductos.39@gmail.com']
 server = smtplib.SMTP('smtp.gmail.com', 587)
