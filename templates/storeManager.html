@@ -52,18 +52,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for producto in productos %}
+            {% for item in items %}
                 <tr>
-                    <td>{{ producto.0 }}</td>
-                    <td>{{ producto.1 }}</td>
-                    <td><img src="{{url_for('static', filename=producto.2)}}"  style="width: 80px; height: 80px;"></td>
-                    <td>{{ producto.3 }}</td>
-                    <td>${{ producto.4 }}</td>
-                    <td>{{ producto.5 }}</td>
-                    <td>{{ producto.6 }}</td>
+                    <td>{{ item }}</td>
+                    <td>{{ item.Producto }}</td>
+                    <td><img src="{{url_for('static', filename=item.2)}}"  style="width: 80px; height: 80px;"></td>
+                    <td>{{ Descripcion }}</td>
+                    <td>${{ item }}</td>
+                    <td>{{ item }}</td>
+                    <td>{{ item }}</td>
                     <td>
-                        <a href="/edit/{{producto.0}}" class="btn btn-primary">Editar</a>
-                        <a href="/delete/{{producto.0}}" class="btn btn-danger">Borrar</a>
+                        <a href="/edit/{{item.0}}" class="btn btn-primary">Editar</a>
+                        <a href="/delete/{{item.0}}" class="btn btn-danger">Borrar</a>
                     </td>
                 </tr>
             {% endfor %}

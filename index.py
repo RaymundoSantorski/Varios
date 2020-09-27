@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape, jsonify
-import sqlite3, os, smtplib
+import os, smtplib, sqlite3
 from google.cloud import storage
 from firebase import firebase 
 
@@ -15,7 +15,7 @@ total = 0
 db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
 
 #email smtp
-emaillist = ['rayma9829@gmail.com','armnproductos.39@gmail.com']
+emaillist = ['rayma9829@gmail.com',]
 server = smtplib.SMTP('smtp.gmail.com', 587)
 server.starttls()
 
@@ -23,20 +23,15 @@ server.starttls()
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
     if "username" in session:
-        con = sqlite3.connect('mydb.db')
-        cur = con.cursor()
-        cur.execute('SELECT * FROM Productos')
-        data = cur.fetchall()
+        data = db.get("Productos", name)
         name = escape(session["username"])
-        return render_template("storeManager.html", productos = data, opc = True, name = name )
+        print(data)
+        return render_template("storeManager.html", items = data, opc = True, name = name )
     else:
         if request.method == 'POST':
             user = request.form['usuario']
             password = request.form['contrasena']
-            con = sqlite3.connect('mydb.db')
-            cur = con.cursor()
-            cur.execute('SELECT * FROM Usuarios')
-            usuarios = cur.fetchall()
+            usuarios = db.get("Usuarios", "")
             auten = False
             for usuario in usuarios:
                 if usuario[1]==user and usuario[0]==password:
@@ -45,8 +40,7 @@ def storeManager():
                     break
         
             if auten == True:   
-                cur.execute('SELECT * FROM Productos')
-                data = cur.fetchall()
+                productos = db.get("Productos", "")
                 flash('Bienvenido')
                 name = escape(session["username"])
                 return render_template("storeManager.html", productos = data, opc = True, name = name)
@@ -83,19 +77,15 @@ def add():
             destination = "/".join([target, filename])
             precioFormat = int(precio)
             imagen.save(destination)
-            con = sqlite3.connect('mydb.db')
-            cur = con.cursor()
-            cur.execute('INSERT INTO Productos (Producto, Imagen, Descripcion, Precio, Inventario, Etiquetas) VALUES (?,?,?,?,?,?)',(producto, filename, descripcion, precio, inventario, etiquetas))
-            con.commit()
-            datas = {
-                "Producto": producto,
-                "Imagen": filename,
-                "Descripcion": descripcion,
-                "Precio": precio,
-                "Inventario": inventario,
-                "Etiquetas": etiquetas
-            }
-            datos = db.post("Productos", datas)
+            data =  {
+                    "Producto": producto,
+                    "Imagen": filename,
+                    "Descripcion": descripcion,
+                    "Precio": precio,
+                    "Inventario": inventario,
+                    "Etiquetas": etiquetas
+                    }
+            db.post("Productos", data)
             server.login('apapachatestore@gmail.com','apapachatecontrasena')
             message = 'Se ha agregado un producto satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
             subject = 'Producto agregado'
@@ -111,6 +101,9 @@ def delete(id):
     cur = con.cursor()
     cur.execute('SELECT Imagen FROM Productos WHERE ID = ?', (id,))
     img = cur.fetchone()
+    data = db.get("Productos", id)
+    imagen = data[4]
+    print(imagen)
     cur.execute('DELETE FROM Productos WHERE ID = ?', (id,))
     con.commit()
     os.remove('static/'+img[0])
