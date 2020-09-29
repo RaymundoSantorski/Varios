@@ -23,7 +23,6 @@ server.starttls()
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
     if "username" in session:
-        lista = []
         data = db.get("Productos", "")
         name = escape(session["username"])
         return render_template("storeManager.html", it = data, opc = True, name = name )
@@ -184,15 +183,21 @@ def signup():
         cur = con.cursor()
         cur.execute("SELECT * FROM Usuarios")
         users = cur.fetchall()
+
+        users = db.get("Usuarios", "")
         registrar = False
         if contrasena == confirmcontrasena:
             for user in users:
-                if user[1] == usuario:
+                if users[user]["Usuario"] == usuario:
                     flash('El usuario ya existe, intente con otro')
                     return render_template('signup.html')
                 else:
-                    cur.execute('INSERT INTO Usuarios (Usuario,Contraseña) VALUES (?,?)',(usuario, contrasena))
-                    con.commit()
+                    data =  {
+                        "Usuario": usuario,
+                        "Contraseña": contrasena,
+                        "email": correo
+                    }
+                    db.post("Productos", data)
                     server.login('apapachatestore@gmail.com','apapachatecontrasena')
                     message = 'Se ha registrado un nuevo usuario\nCorreo enviado desde apapachatestore.herokuapp.com'
                     subject = 'Alta de usuario'
