@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import os, smtplib, sqlite3
 from google.cloud import storage
 from firebase import firebase 
-from firebase_admin import db, credentials
 
 app = Flask(__name__)
 
@@ -24,12 +23,10 @@ server.starttls()
 @app.route("/storeManager", methods =['POST','GET']) 
 def storeManager():
     if "username" in session:
-        jas = {}
+        lista = []
         data = db.get("Productos", "")
-        for dato in data:
-            d = db.get("Productos", dato)
         name = escape(session["username"])
-        return render_template("storeManager.html", items = data, opc = True, name = name )
+        return render_template("storeManager.html", it = data, opc = True, name = name )
     else:
         if request.method == 'POST':
             user = request.form['usuario']

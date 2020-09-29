@@ -52,18 +52,18 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in items %}
+            {% for key in it %}
                 <tr>
-                    <td>{{ item }}</td>
-                    <td>{{ item.Producto }}</td>
-                    <td><img src="{{url_for('static', filename=item.2)}}"  style="width: 80px; height: 80px;"></td>
-                    <td>{{ Descripcion }}</td>
-                    <td>${{ item }}</td>
-                    <td>{{ item }}</td>
-                    <td>{{ item }}</td>
+                    <td>{{ key }}</td>
+                    <td>{{ it[key]["Producto"] }}</td>
+                    <td><img src="{{url_for('static', filename=it[key]['Imagen'])}}"  style="width: 80px; height: 80px;"></td>
+                    <td>{{ it[key]["Descripcion"] }}</td>
+                    <td>${{ it[key]["Precio"] }}</td>
+                    <td>{{ it[key]["Inventario"] }}</td>
+                    <td>{{ it[key]["Etiquetas"] }}</td>
                     <td>
-                        <a href="/edit/{{item.0}}" class="btn btn-primary">Editar</a>
-                        <a href="/delete/{{item.0}}" class="btn btn-danger">Borrar</a>
+                        <a href="/edit/{{key}}" class="btn btn-primary">Editar</a>
+                        <a href="/delete/{{key}}" class="btn btn-danger">Borrar</a>
                     </td>
                 </tr>
             {% endfor %}
