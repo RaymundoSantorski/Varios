@@ -12,9 +12,18 @@ target = os.path.join(APP_ROOT, 'static/')
 total = 0
 
 # firebase
-db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
+firebaseConfig = {
+  "apiKey": "AIzaSyBAnc0Oz9Y5WEyjqyH385ue6L_UpkvLtew",
+  "authDomain": "apapachatestore.firebaseapp.com",
+  "databaseURL": "https://apapachatestore.firebaseio.com",
+  "projectId": "apapachatestore",
+  "storageBucket": "apapachatestore.appspot.com",
+  "messagingSenderId": "529842451934",
+    "appId": "1:529842451934:web:9a29de330667b9727ad94f"
+}
+db = firebase.FirebaseApplication(firebaseConfig)
 
-storage.client.Client(project="ApapachateStore", credentials=None, _http=None, client_info=None, client_options=None)
+storage.client.Client(project="ApapachateStore", credentials=None, _http='gs://apapachatestore.appspot.com', client_info=None, client_options=None)
 client = storage.Client()
 
 #email smtp
@@ -238,7 +247,7 @@ def carrito():
 @app.route("/producto/<id>")
 def producto(id):
     producto = db.get("Productos", id)
-    
+    client.get_bucket('gs://apapachatestore.appspot.com/')
     return render_template("producto.html", productos = producto, id = id)
 
 
