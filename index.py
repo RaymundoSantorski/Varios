@@ -204,7 +204,7 @@ def index():
 
 @app.route("/productos")
 def product():
-    productos = db.get("Productos", "")
+    data = db.get("Productos", "")
     return render_template("productos.html", productos = data)
 
 @app.route("/vaciarCarrito")
