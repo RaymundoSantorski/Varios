@@ -32,17 +32,17 @@ def storeManager():
             password = request.form['contrasena']
             usuarios = db.get("Usuarios", "")
             auten = False
-            for usuario in usuarios:
-                if usuario[1]==user and usuario[0]==password:
+            for key in usuarios:
+                if usuarios[key]["Usuario"]==user and usuarios[key]["Contraseña"]==password:
                     session["username"] = user
                     auten = True
                     break
         
             if auten == True:   
-                productos = db.get("Productos", "")
+                data = db.get("Productos", "")
                 flash('Bienvenido')
                 name = escape(session["username"])
-                return render_template("storeManager.html", productos = data, opc = True, name = name)
+                return render_template("storeManager.html", it = data, opc = True, name = name)
             else:
                 flash('El usuario o la contraseña son incorrectos')
                 return render_template("autenticar.html")
@@ -179,11 +179,7 @@ def signup():
         usuario = request.form['usuario']
         contrasena = request.form['contrasena']
         confirmcontrasena = request.form['confirmcontrasena']
-        con = sqlite3.connect('mydb.db')
-        cur = con.cursor()
-        cur.execute("SELECT * FROM Usuarios")
-        users = cur.fetchall()
-
+        correo = request.form['email']
         users = db.get("Usuarios", "")
         registrar = False
         if contrasena == confirmcontrasena:
@@ -197,7 +193,7 @@ def signup():
                         "Contraseña": contrasena,
                         "email": correo
                     }
-                    db.post("Productos", data)
+                    db.post("Usuarios", data)
                     server.login('apapachatestore@gmail.com','apapachatecontrasena')
                     message = 'Se ha registrado un nuevo usuario\nCorreo enviado desde apapachatestore.herokuapp.com'
                     subject = 'Alta de usuario'
