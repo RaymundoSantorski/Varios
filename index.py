@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape, jsonify
-import os, smtplib
-from google.cloud import storage
+import os, smtplib, pyrebase
 from firebase import firebase 
 
 app = Flask(__name__)
@@ -13,8 +12,19 @@ total = 0
 
 # firebase
 db = firebase.FirebaseApplication("https://apapachatestore.firebaseio.com")
-storage.client.Client(project="ApapachateStore", credentials=None, _http='gs://apapachatestore.appspot.com', client_info=None, client_options=None)
-client = storage.Client()
+
+# storage
+storageConfig = {
+    "apiKey": "AIzaSyBAnc0Oz9Y5WEyjqyH385ue6L_UpkvLtew",
+    "authDomain": "apapachatestore.firebaseapp.com",
+    "databaseURL": "https://apapachatestore.firebaseio.com",
+    "projectId": "apapachatestore",
+    "storageBucket": "apapachatestore.appspot.com",
+    "messagingSenderId": "529842451934",
+    "appId": "1:529842451934:web:9a29de330667b9727ad94f"
+}
+firebase = pyrebase.initialize_app(storageConfig)
+storage = firebase.storage()
 
 #email smtp
 emaillist = ['rayma9829@gmail.com',]
