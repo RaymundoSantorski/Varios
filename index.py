@@ -112,7 +112,8 @@ def delete(id):
 @app.route("/edit/<id>")
 def edit(id):
     data = db.get("Productos", id)
-    return render_template("edit.html", producto = data)
+    print(data)
+    return render_template("edit.html", producto = data, id = id)
 
 @app.route("/update/<id>", methods = ['POST'])
 def update(id):
@@ -128,10 +129,9 @@ def update(id):
         con = sqlite3.connect('mydb.db')
         cur = con.cursor()
         if imagen:
-            cur.execute('SELECT Imagen FROM Productos WHERE ID = ?', (id,)) 
-            ind = cur.fetchone()
-            img = ind[0]
+            img = db.get("Productos", id)["Imagen"]
             os.remove('static/'+img)
+            db.put()
             cur.execute("""
                 UPDATE Productos
                 SET Imagen = ?
