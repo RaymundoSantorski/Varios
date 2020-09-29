@@ -128,27 +128,24 @@ def update(id):
         destination = "/".join([target, filename])
         con = sqlite3.connect('mydb.db')
         cur = con.cursor()
-        pa = "Productos/",id
+        pa = "Productos/"+id
+        print(pa)
         if imagen:
             img = db.get("Productos", id)["Imagen"]
             os.remove('static/'+img)
-            db.put(pa, "Imagen", imagen)
+            db.put(pa, "Imagen", filename)
             imagen.save(destination)
         if producto:
             db.put(pa, "Producto", producto)
         if descripcion:
-            cur.execute("UPDATE Productos SET descripcion = ? WHERE ID = ?", (descripcion, id))
-            con.commit()
+            db.put(pa, "Descripcion", descripcion)
         if precio:
             precioFormat = int(precio)
-            cur.execute("UPDATE Productos SET Precio = ? WHERE ID = ?", (precioFormat   , id))
-            con.commit()
+            db.put(pa, "Precio", precioFormat)
         if inventario:
-            cur.execute("UPDATE Productos SET Inventario = ? WHERE ID = ?", (inventario, id))
-            con.commit()
+            db.put(pa, "Inventario", inventario)
         if etiquetas:
-            cur.execute("UPDATE Productos SET Etiquetas = ? WHERE ID = ?", (etiquetas, id))
-            con.commit()
+            db.put(pa, "Etiquetas", etiquetas)
         server.login('apapachatestore@gmail.com','apapachatecontrasena')
         message = 'El producto ha sido actualizado satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
         subject = 'Producto actualizado'
@@ -202,10 +199,7 @@ def adduser():
 #apapachateStore
 @app.route("/")
 def index():
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM Productos")
-    productos = cur.fetchall()
+    productos = db.get("Productos", "")
     return render_template('index.html', productos = productos)
 
 @app.route("/productos")
