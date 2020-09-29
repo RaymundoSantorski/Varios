@@ -14,6 +14,8 @@ total = 0
 # firebase
 db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
 
+storage.client.Client(project="ApapachateStore", credentials=None, _http=None, client_info=None, client_options=None)
+
 #email smtp
 emaillist = ['rayma9829@gmail.com',]
 server = smtplib.SMTP('smtp.gmail.com', 587)
