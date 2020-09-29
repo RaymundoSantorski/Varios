@@ -25,6 +25,8 @@ storageConfig = {
 }
 firebase = pyrebase.initialize_app(storageConfig)
 storage = firebase.storage()
+pathCloud = "Productos/img.jpg"
+pathLocal = "static/bodychicas-min.jpg"
 
 #email smtp
 emaillist = ['rayma9829@gmail.com',]
@@ -52,6 +54,8 @@ def storeManager():
         
             if auten == True:   
                 data = db.get("Productos", "")
+                for key in data:
+                    storage.child(pathCloud).download(target+"/"+data[key]["imagen"])
                 flash('Bienvenido')
                 name = escape(session["username"])
                 return render_template("storeManager.html", it = data, opc = True, name = name)
@@ -88,6 +92,9 @@ def add():
             destination = "/".join([target, filename])
             precioFormat = int(precio)
             imagen.save(destination)
+            pathCloud = "Productos/"+filename
+            pathLocal = destination
+            storage.child(pathCloud).put(pathLocal)
             data =  {
                     "Producto": producto,
                     "Imagen": filename,
@@ -247,7 +254,6 @@ def carrito():
 @app.route("/producto/<id>")
 def producto(id):
     producto = db.get("Productos", id)
-    client.get_bucket('gs://apapachatestore.appspot.com/')
     return render_template("producto.html", productos = producto, id = id)
 
 
