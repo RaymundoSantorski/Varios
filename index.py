@@ -15,6 +15,7 @@ total = 0
 db = firebase.FirebaseApplication('https://apapachatestore.firebaseio.com/')
 
 storage.client.Client(project="ApapachateStore", credentials=None, _http=None, client_info=None, client_options=None)
+client = storage.Client()
 
 #email smtp
 emaillist = ['rayma9829@gmail.com',]
@@ -237,6 +238,7 @@ def carrito():
 @app.route("/producto/<id>")
 def producto(id):
     producto = db.get("Productos", id)
+    
     return render_template("producto.html", productos = producto, id = id)
 
 
