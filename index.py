@@ -25,8 +25,15 @@ storageConfig = {
 }
 firebase = pyrebase.initialize_app(storageConfig)
 storage = firebase.storage()
-pathCloud = "Productos/img.jpg"
-pathLocal = "static/bodychicas-min.jpg"
+pathCloud = "Productos/"
+
+# descarga de archivos
+data = db.get("Productos", "")
+if(data):
+    for key in data:
+        pathCloud = "Productos/"+data[key]["Imagen"]
+        pathLocal = "static/"+data[key]["Imagen"]
+        storage.child(pathCloud).download(pathLocal)
 
 #email smtp
 emaillist = ['rayma9829@gmail.com',]
@@ -39,7 +46,10 @@ def storeManager():
     if "username" in session:
         data = db.get("Productos", "")
         name = escape(session["username"])
-        return render_template("storeManager.html", it = data, opc = True, name = name )
+        if(data):
+            return render_template("storeManager.html", it = data, opc = True, name = name )
+        else:
+            return render_template("storeManager.html", opc = True, name = name )
     else:
         if request.method == 'POST':
             user = request.form['usuario']
@@ -54,11 +64,17 @@ def storeManager():
         
             if auten == True:   
                 data = db.get("Productos", "")
-                for key in data:
-                    storage.child(pathCloud).download(target+"/"+data[key]["imagen"])
-                flash('Bienvenido')
                 name = escape(session["username"])
-                return render_template("storeManager.html", it = data, opc = True, name = name)
+                if(data):
+                    for key in data:
+                        print(data[key]["Imagen"])
+                        pathCloud = "Productos/"+data[key]["Imagen"]
+                        pathLocal = "static/"+data[key]["Imagen"]
+                        storage.child(pathCloud).download(pathLocal)
+                    flash('Bienvenido')
+                    return render_template("storeManager.html", it = data, opc = True, name = name)
+                else:
+                    return render_template("storeManager.html", opc = True, name = name)
             else:
                 flash('El usuario o la contraseña son incorrectos')
                 return render_template("autenticar.html")
