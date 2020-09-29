@@ -96,16 +96,10 @@ def add():
 
 @app.route("/delete/<id>")
 def delete(id):
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute('SELECT Imagen FROM Productos WHERE ID = ?', (id,))
-    img = cur.fetchone()
-    data = db.get("Productos", id)
-    imagen = data[4]
-    print(imagen)
-    cur.execute('DELETE FROM Productos WHERE ID = ?', (id,))
-    con.commit()
-    os.remove('static/'+img[0])
+    img = db.get("Productos", id)["Imagen"]
+    print(img)
+    db.delete("Productos", id)
+    os.remove('static/'+img)
     server.login('apapachatestore@gmail.com','apapachatecontrasena')
     message = 'El producto ha sido eliminado satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
     subject = 'Producto eliminado'
@@ -117,10 +111,7 @@ def delete(id):
 
 @app.route("/edit/<id>")
 def edit(id):
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM Productos WHERE ID = ?', (id,))
-    data = cur.fetchone()
+    data = db.get("Productos", id)
     return render_template("edit.html", producto = data)
 
 @app.route("/update/<id>", methods = ['POST'])
