@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, escape, jsonify
-import os, smtplib, sqlite3
+import os, smtplib
 from google.cloud import storage
 from firebase import firebase 
 
@@ -126,8 +126,6 @@ def update(id):
         etiquetas = request.form['etiquetas']
         filename = imagen.filename
         destination = "/".join([target, filename])
-        con = sqlite3.connect('mydb.db')
-        cur = con.cursor()
         pa = "Productos/"+id
         print(pa)
         if imagen:
@@ -220,7 +218,7 @@ def agregar(precio):
     else:
         session['total'] = precio
     flash('El total es {}'.format(escape(session['total'])))
-    return redirect(url_for('index'))
+    return redirect(url_for('product'))
 
 
 @app.route("/successful")
@@ -236,11 +234,8 @@ def carrito():
 
 @app.route("/producto/<id>")
 def producto(id):
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute("SELECT * FROM Productos WHERE ID = ?", (id,))
-    producto = cur.fetchall()
-    return render_template("producto.html", productos = producto)
+    producto = db.get("Productos", id)
+    return render_template("producto.html", productos = producto, id = id)
 
 
 if __name__ == '__main__': 
