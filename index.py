@@ -128,20 +128,14 @@ def update(id):
         destination = "/".join([target, filename])
         con = sqlite3.connect('mydb.db')
         cur = con.cursor()
+        pa = "Productos/",id
         if imagen:
             img = db.get("Productos", id)["Imagen"]
             os.remove('static/'+img)
-            db.put()
-            cur.execute("""
-                UPDATE Productos
-                SET Imagen = ?
-                WHERE ID = ?
-            """, (filename, id))
-            con.commit()
+            db.put(pa, "Imagen", imagen)
             imagen.save(destination)
         if producto:
-            cur.execute("UPDATE Productos SET Producto = ? WHERE ID = ?", (producto, id))
-            con.commit()
+            db.put(pa, "Producto", producto)
         if descripcion:
             cur.execute("UPDATE Productos SET descripcion = ? WHERE ID = ?", (descripcion, id))
             con.commit()
