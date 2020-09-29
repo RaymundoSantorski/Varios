@@ -204,10 +204,7 @@ def index():
 
 @app.route("/productos")
 def product():
-    con = sqlite3.connect('mydb.db')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM Productos')
-    data = cur.fetchall()
+    productos = db.get("Productos", "")
     return render_template("productos.html", productos = data)
 
 @app.route("/vaciarCarrito")
