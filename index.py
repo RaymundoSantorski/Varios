@@ -134,7 +134,6 @@ def delete(id):
     img = db.get("Productos", id)["Imagen"]
     print(img)
     db.delete("Productos", id)
-    os.remove('static/'+img)
     server.login('apapachatestore@gmail.com','apapachatecontrasena')
     message = 'El producto ha sido eliminado satisfactoriamente\nCorreo enviado desde apapachatestore.herokuapp.com'
     subject = 'Producto eliminado'
@@ -162,12 +161,14 @@ def update(id):
         filename = imagen.filename
         destination = "/".join([target, filename])
         pa = "Productos/"+id
-        print(pa)
+        pathCloud = "Productos"
+        pathLocal = destination
         if imagen:
             img = db.get("Productos", id)["Imagen"]
             os.remove('static/'+img)
             db.put(pa, "Imagen", filename)
             imagen.save(destination)
+            storage.child(pathCloud).put(pathLocal)
         if producto:
             db.put(pa, "Producto", producto)
         if descripcion:
